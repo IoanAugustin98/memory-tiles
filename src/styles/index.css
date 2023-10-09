@@ -6,5 +6,5 @@
 
 body {
     font-family: 'Raleway', sans-serif;
-    @apply bg-grey-500 text-light;
+    @apply bg-gray-500 text-light;
 }

@@ -12,8 +12,7 @@ const HomePage =  () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <GameLayout>
-        <div className="container mx-auto px-4">
-          <i className="fa-solid fa-house"></i>
+        <div className="container mx-auto px-4 text-center">
           <Game></Game>
         </div>
       </GameLayout>
