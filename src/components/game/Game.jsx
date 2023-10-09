@@ -4,10 +4,27 @@ import { generateTilesArray } from '.';
 export const Game = () => {
   const [ tilesArray, setTilesArray ] = useState([]);
   const [ unflipTimeoutId, setunflipTimeoutId ] = useState(-1);
+  const [ gameState, setGameState ] = useState({
+    playing: true,
+    gameWon: false
+  });
 
-  useEffect(()=>{
+  useEffect(() => {
     setTilesArray(generateTilesArray());
   },[setTilesArray]);
+
+  useEffect(() => {
+    const matchedTiles = tilesArray.filter(({matched}) => {
+      return matched === true;
+    });
+
+    if( matchedTiles.length === tilesArray.length ) {
+      setGameState({
+        playing: true,
+        gameWon: true
+      });
+    }
+  },[tilesArray, setGameState])
 
   useEffect(() => {
     const pairs = tilesArray.filter(( { visible, matched } ) => {
@@ -27,10 +44,6 @@ export const Game = () => {
       }
     }
   },[tilesArray, setTilesArray]);
-
-  if( tilesArray.length < 1 ){
-    return 'Loding';
-  }
 
   const onClick = (tileIndex) => {
     const pairs = tilesArray.filter(( { visible, matched } ) => {
@@ -56,6 +69,31 @@ export const Game = () => {
 
     setTilesArray(tilesArray.slice());
 
+  }
+
+  if( tilesArray.length < 1 ){
+    return 'Loding';
+  }
+
+  if( gameState.gameWon === true ) {
+    return (
+      <>
+        <h2>You won</h2>
+        <button 
+          title='New game?'
+          type='button'
+          onClick={() => {
+            setTilesArray(generateTilesArray());
+            setGameState({
+              playing: true,
+              gameWon: false
+            });
+          }}
+        >
+          New game?
+        </button>
+      </>
+    );
   }
 
   return <div className='inline-grid grid-cols-4 gap-4'>
