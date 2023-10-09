@@ -13,6 +13,7 @@ const HomePage =  () => {
       </Head>
       <GameLayout>
         <div className="container mx-auto px-4">
+          <i className="fa-solid fa-house"></i>
           <Game></Game>
         </div>
       </GameLayout>
