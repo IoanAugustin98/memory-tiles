@@ -18,7 +18,7 @@ export const Game = () => {
       return matched === true;
     });
 
-    if( matchedTiles.length === tilesArray.length ) {
+    if( tilesArray.length > 0 && matchedTiles.length === tilesArray.length ) {
       setGameState({
         playing: true,
         gameWon: true
@@ -98,7 +98,7 @@ export const Game = () => {
 
   return <div className='inline-grid grid-cols-4 gap-4'>
     {
-      tilesArray.map(( { id, matched, visible }, index )=>{
+      tilesArray.map(( { id, visible }, index )=>{
         return ( 
           <button 
             type='button' 
