@@ -1,3 +1,4 @@
+import { GameDifficulty } from '@/components/game';
 import React from 'react'
 
 export const GameLayout = ({ children }) => {
@@ -12,7 +13,9 @@ export const GameLayout = ({ children }) => {
         </header>
         <main>{ children }</main>
       </div>
-      <footer className='text-center pb-12'>Difficulty</footer>
+      <footer className='text-center pb-12 container mx-auto px-4'>
+        <GameDifficulty></GameDifficulty>
+      </footer>
     </div>
   );
 }

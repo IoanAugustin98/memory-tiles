@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { generateTilesArray } from '.';
+import { GameControls, GameDifficulty, GameTile, generateTilesArray } from '.';
 
 export const Game = () => {
   const [ tilesArray, setTilesArray ] = useState([]);
@@ -9,9 +9,13 @@ export const Game = () => {
     gameWon: false
   });
 
-  useEffect(() => {
+  const newGame = ( difficulty = 'easy' ) => {
     setTilesArray(generateTilesArray());
-  },[setTilesArray]);
+  }
+
+  useEffect(() => {
+    newGame()
+  },[]);
 
   useEffect(() => {
     const matchedTiles = tilesArray.filter(({matched}) => {
@@ -96,23 +100,27 @@ export const Game = () => {
     );
   }
 
-  return <div className='inline-grid grid-cols-4 gap-4'>
-    {
-      tilesArray.map(( { id, visible }, index )=>{
-        return ( 
-          <button 
-            type='button' 
-            title="Click here to uncover" 
+  return (
+    <div>
+      <div className="w-2/3 mx-auto mb-10">
+        <GameControls newGame={newGame}></GameControls>
+      </div>
+      
+      <div className='inline-grid grid-cols-4 gap-4'>
+      {
+        tilesArray.map(( tile, index )=>{
+          return ( 
+          <GameTile 
             key={index} 
-            className={`w-32 h-32 border border-primary rounded-md flex bg-gray-300 text-primary justify-center items-center text-4xl`}
-            onClick={() => {
-              onClick(index);
-            }}
+            index={index} 
+            tile={tile} 
+            onClick={onClick}
           >
-            { visible === true ? <i className={`${id} drop-shadow-sm`}></i> : <></> }
-          </button>
-        );
-      })
-    }
-  </div>;
+          </GameTile>
+          );
+        })
+      }
+      </div>
+    </div>
+  );
 }
