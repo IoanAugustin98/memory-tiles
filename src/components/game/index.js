@@ -22,11 +22,12 @@ export const icons = [
 export const generateTilesArray = ( difficulty = 'easy' ) => {
     const slicedIcons = icons.slice(0,difficultyMap[difficulty]);
     const tilesArray = shuffle([...slicedIcons, ...slicedIcons]);
-    return tilesArray.map((id) => {
+    return tilesArray.map((id, index) => {
         return {
             id,
             matched: false,
-            visible: false
+            visible: false,
+            index
         }
     });
 };
