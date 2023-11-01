@@ -68,19 +68,24 @@ const reducer = (state, {type, payload}) => {
           tilesArray: newTiles
         };
       }
+
+      const matchedTiles = newTiles.filter(({matched}) => {
+        return matched === true;
+      });
+
+      if(matchedTiles.length === newTiles.length-2){
+        return {
+          ...state,
+          playing: false,
+          gameWon: true,
+        };
+      }
+
       return {
         ...state,
         tilesArray: newTiles
       };
-      /*const tile = state.tilesArray[payload];
-      newTiles[payload] = {
-        ...tile,
-        visible: true
-      };
-      return {
-        ...state,
-        tilesArray: newTiles
-      }*/
+
     case 'game:setTilesArray':
       return {
         ...state,
@@ -106,15 +111,6 @@ export const Game = () => {
   useEffect(() => {
     newGame()
   },[]);
-
-  useEffect(() => {
-    const matchedTiles = tilesArray.filter(({matched}) => {
-      return matched === true;
-    });
-    if( tilesArray.length > 0 && matchedTiles.length === tilesArray.length ) {
-      dispatch({ type: 'game:won' });
-    }
-  },[tilesArray, dispatch]);
 
   if( tilesArray.length < 1 ){
     return 'Loading';
