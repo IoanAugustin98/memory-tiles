@@ -1,8 +1,10 @@
-import { generateTilesArray } from '@/components/game'
+import { GameProvider } from '@/context'
 import './../styles/index.css'
 
-generateTilesArray();
-
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <GameProvider>
+      <Component {...pageProps} />
+    </GameProvider>
+  );
 }
