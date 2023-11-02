@@ -42,16 +42,8 @@ export const Game = () => {
         tilesArray.map(( tile, index )=>{
           const { id, visible } = tile;
           return ( 
-          /*<GameTile 
-            key={index} 
-            index={index} 
-            tile={tile} 
-            onClick={() => {
-              dispatch({ type: 'game:playTile', payload: index })
-            }}
-          >
-          </GameTile>*/
-          <button 
+          <GameTile key={index} index={index} tile={tile}></GameTile>
+          /*<button 
             type='button' 
             title="Click here to uncover" 
             key={index} 
@@ -61,7 +53,7 @@ export const Game = () => {
             }}
           >
             { visible === true ? <i className={`${id} drop-shadow-sm`}></i> : <></> }
-          </button>
+          </button>*/
           );
         })
       }

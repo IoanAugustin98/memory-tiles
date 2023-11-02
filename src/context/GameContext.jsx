@@ -1,5 +1,5 @@
 import { generateTilesArray } from '@/components/game';
-import { createContext, useReducer } from 'react'
+import { createContext, useEffect, useReducer } from 'react'
 
 let timerId = -1;
 
@@ -45,30 +45,33 @@ const reducer = (state, {type, payload}) => {
         }
   
         if( visibleTiles.length === 2 ) {
-          const [ visibleTile1, visibleTile2 ] = visibleTiles;
-          if( visibleTile1.id === visibleTile2.id ) {
-            newTiles[visibleTile1.index] = {
-              ...visibleTile1,
-              matched: true
+            if( timerId > 0 ){
+                clearTimeout(timerId);
+            }
+            const [ visibleTile1, visibleTile2 ] = visibleTiles;
+            if( visibleTile1.id === visibleTile2.id ) {
+                newTiles[visibleTile1.index] = {
+                ...visibleTile1,
+                matched: true
+                };
+                newTiles[visibleTile2.index] = {
+                ...visibleTile2,
+                matched: true
+                };
+            } else {
+                newTiles[visibleTile1.index] = {
+                ...visibleTile1,
+                visible: false
+                };
+                newTiles[visibleTile2.index] = {
+                ...visibleTile2,
+                visible: false
+                };
+            }
+            return {
+                ...state,
+                tilesArray: newTiles
             };
-            newTiles[visibleTile2.index] = {
-              ...visibleTile2,
-              matched: true
-            };
-          } else {
-            newTiles[visibleTile1.index] = {
-              ...visibleTile1,
-              visible: false
-            };
-            newTiles[visibleTile2.index] = {
-              ...visibleTile2,
-              visible: false
-            };
-          }
-          return {
-            ...state,
-            tilesArray: newTiles
-          };
         }
   
         const matchedTiles = newTiles.filter(({matched}) => {
@@ -92,12 +95,12 @@ const reducer = (state, {type, payload}) => {
         return {
           ...state,
          tilesArray: payload
-        }
+        };
       case 'game:setUnflipTimeoutId':
         return {
           ...state,
           timeoutId: payload
-        }
+        };
       default:
         return state;
     }
@@ -107,6 +110,25 @@ export const gameContext = createContext();
 
 export const GameProvider = ({ children }) => {
     const [ state, dispatch ] = useReducer(reducer, initialState);
+    const { tilesArray } = state;
+
+    useEffect(()=>{
+        const visibleTiles = tilesArray.filter(( { visible, matched } ) => {
+            return visible && !matched;
+        });
+        if( visibleTiles.length === 2 ) {
+            const[visibleTile1, visibleTile2 ] = visibleTiles;
+            if( visibleTile1.id !== visibleTile2.id ){
+                timerId = setTimeout(()=>{
+                    const newTiles = tilesArray.slice();
+                    visibleTile1.visible = false;
+                    visibleTile2.visible = false;
+                    dispatch('game:setTilesArray',newTiles);
+                }, 1000 * 1 );
+            }
+        }
+    }, [tilesArray, dispatch]);
+
     return (
         <gameContext.Provider value={{state, dispatch}}>
             { children }
