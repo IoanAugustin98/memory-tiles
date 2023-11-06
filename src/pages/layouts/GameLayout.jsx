@@ -5,7 +5,7 @@ export const GameLayout = ({ children }) => {
   return (
     <div className='flex flex-col justify-between h-screen'>
       <div>
-        <header className='text-center mt-32 mb-6'>
+        <header className='text-center my-16'>
           <h1 className='text-7xl font-bold mb-5'>Memory tiles</h1>
           <p>
             Click on tow tiles and find the matching images.
@@ -13,7 +13,7 @@ export const GameLayout = ({ children }) => {
         </header>
         <main>{ children }</main>
       </div>
-      <footer className='text-center pb-12 container mx-auto px-4'>
+      <footer className='text-center pb-12 mt-4 container mx-auto px-4'>
         <GameDifficulty></GameDifficulty>
       </footer>
     </div>

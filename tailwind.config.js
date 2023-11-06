@@ -1,6 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
+  safelist: [
+    'grid-cols-4',
+    'grid-cols-6',
+    'grid-cols-8',
+    'grid-cols-10',
+    'grid-cols-12'
+  ],
   theme: {
     colors: {
       light:      '#eee',

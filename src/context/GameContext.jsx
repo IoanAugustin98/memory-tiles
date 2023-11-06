@@ -16,34 +16,35 @@ const reducer = (state, {type, payload}) => {
       case 'game:new':
         return {
           ...state,
-          tilesArray: generateTilesArray(),
+          tilesArray: generateTilesArray(state.difficulty),
           playing: true,
           gameWon: false
         }
+
       case 'game:won':
           return {
             ...state,
             playing: false,
             gameWon: true
           }
+
       case 'game:lost':
         return {
           ...state,
           playing: false,
           gameWon: false
         }
+
       case 'game:playTile':
         const visibleTiles = state.tilesArray.filter(( { visible, matched } ) => {
           return visible && !matched;
         });
-  
         const newTiles = state.tilesArray.slice();
         const playedTile = newTiles[payload];
         newTiles[playedTile.index] = {
           ...playedTile,
           visible: true
         }
-  
         if( visibleTiles.length === 2 ) {
             if( timerId > 0 ){
                 clearTimeout(timerId);
@@ -74,11 +75,9 @@ const reducer = (state, {type, payload}) => {
                 tilesArray: newTiles
             };
         }
-  
         const matchedTiles = newTiles.filter(({matched}) => {
           return matched === true;
         });
-  
         if(matchedTiles.length === newTiles.length-2){
           if( timerId > 0 ){
             clearTimeout(timerId);
@@ -91,7 +90,6 @@ const reducer = (state, {type, payload}) => {
             gameWon: true,
           };
         }
-  
         return {
           ...state,
           tilesArray: newTiles
@@ -102,11 +100,15 @@ const reducer = (state, {type, payload}) => {
           ...state,
          tilesArray: payload
         };
-      case 'game:setUnflipTimeoutId':
+
+      case 'game:setDifficulty':
+        const newDifficulty = payload;
         return {
           ...state,
-          timeoutId: payload
+          difficulty: newDifficulty,
+          tilesArray: generateTilesArray(newDifficulty)
         };
+
       default:
         return state;
     }
@@ -117,7 +119,6 @@ export const gameContext = createContext();
 export const GameProvider = ({ children }) => {
     const [ state, dispatch ] = useReducer(reducer, initialState);
     const { tilesArray } = state;
-
     useEffect(()=>{
         const visibleTiles = tilesArray.filter(( { visible, matched } ) => {
             return visible && !matched;
@@ -133,11 +134,10 @@ export const GameProvider = ({ children }) => {
                       type: 'game:setTilesArray',
                       payload: newTiles
                     });
-                }, 1000 * 3 );
+                }, 1000 * 1 );
             }
         }
     }, [tilesArray, dispatch]);
-
     return (
         <gameContext.Provider value={{state, dispatch}}>
             { children }

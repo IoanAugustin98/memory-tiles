@@ -1,22 +1,33 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { difficultyMap } from '.'
+import { gameContext } from '@/context'
 
 export const GameDifficulty = () => {
+    const { state, dispatch } = useContext(gameContext);
+    const { difficulty } = state;
   return (
     <div className='w-2/3 mx-auto text-2xl flex justify-between gap-24'>
         <label>Diffilcuty:</label>
         <ul className='flex justify-between gap-24'>
-            <li>
-                <button title='Easy' type='button'>Easy</button>
-            </li>
-            <li>
-                <button title='Medium' type='button'>Medium</button>
-            </li>
-            <li>
-                <button title='Hard' type='button'>Hard</button>
-            </li>
-            <li>
-                <button title='Very Hard' type='button'>Very Hard</button>
-            </li>
+            {
+                Object.entries(difficultyMap).map(([key, { label, halfTiles }]) => {
+                    return (
+                        <button 
+                            key={key} 
+                            title={`Set difficulty to ${label} (${halfTiles * 2} tiles)`}
+                            onClick={ () => {
+                                dispatch({
+                                    type: 'game:setDifficulty',
+                                    payload: key
+                                });
+                            }}
+                            className={`${difficulty === key ? 'text-primary font-bold' : '' }`}
+                        > 
+                            { label } 
+                        </button>
+                    );
+                })
+            }
         </ul>
     </div>
   )
