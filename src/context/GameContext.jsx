@@ -80,8 +80,13 @@ const reducer = (state, {type, payload}) => {
         });
   
         if(matchedTiles.length === newTiles.length-2){
+          if( timerId > 0 ){
+            clearTimeout(timerId);
+            timerId = -1;
+          }
           return {
             ...state,
+            tilesArray: newTiles,
             playing: false,
             gameWon: true,
           };
