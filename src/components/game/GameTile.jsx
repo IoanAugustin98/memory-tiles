@@ -15,7 +15,6 @@ export const GameTile = ({ tile, index }) => {
             }}
         >
             { visible === true ? <i className={`${id} drop-shadow-sm`}></i> : <></> }
-            { JSON.stringify(tile.visible) }
         </button>
     );
 }

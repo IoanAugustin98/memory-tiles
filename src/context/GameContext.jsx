@@ -47,6 +47,7 @@ const reducer = (state, {type, payload}) => {
         if( visibleTiles.length === 2 ) {
             if( timerId > 0 ){
                 clearTimeout(timerId);
+                timerId = -1;
             }
             const [ visibleTile1, visibleTile2 ] = visibleTiles;
             if( visibleTile1.id === visibleTile2.id ) {
@@ -123,8 +124,11 @@ export const GameProvider = ({ children }) => {
                     const newTiles = tilesArray.slice();
                     visibleTile1.visible = false;
                     visibleTile2.visible = false;
-                    dispatch('game:setTilesArray',newTiles);
-                }, 1000 * 1 );
+                    dispatch({
+                      type: 'game:setTilesArray',
+                      payload: newTiles
+                    });
+                }, 1000 * 3 );
             }
         }
     }, [tilesArray, dispatch]);

@@ -40,20 +40,8 @@ export const Game = () => {
       <div className='inline-grid grid-cols-4 gap-4'>
       {
         tilesArray.map(( tile, index )=>{
-          const { id, visible } = tile;
           return ( 
-          <GameTile key={index} index={index} tile={tile}></GameTile>
-          /*<button 
-            type='button' 
-            title="Click here to uncover" 
-            key={index} 
-            className={`w-32 h-32 border border-primary rounded-md flex bg-gray-300 text-primary justify-center items-center text-4xl`}
-            onClick={() => {
-              dispatch({ type: 'game:playTile', payload: index });
-            }}
-          >
-            { visible === true ? <i className={`${id} drop-shadow-sm`}></i> : <></> }
-          </button>*/
+            <GameTile key={index} index={index} tile={tile}></GameTile>
           );
         })
       }
