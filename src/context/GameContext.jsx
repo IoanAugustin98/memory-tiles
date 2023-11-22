@@ -113,7 +113,8 @@ const reducer = (state, {type, payload}) => {
       return {
         ...state,
         difficulty: newDifficulty,
-        tilesArray: generateTilesArray(newDifficulty)
+        tilesArray: generateTilesArray(newDifficulty),
+        timeLeft: time
       };
 
     case 'game:setTimeLeft': 
