@@ -1,9 +1,10 @@
 import shuffle from 'lodash.shuffle';
 
-export * from './Game'
-export * from './GameControls'
-export * from './GameTile'
-export * from './GameDifficulty'
+export * from './Game';
+export * from './GameControls';
+export * from './GameTile';
+export * from './GameDifficulty';
+export * from './GameTimer';
 
 export const difficultyMap = {
     easy: {

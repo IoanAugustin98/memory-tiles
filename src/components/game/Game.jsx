@@ -4,7 +4,7 @@ import { gameContext } from '@/context';
 
 export const Game = () => {
   const { state, dispatch } = useContext(gameContext);
-  const { tilesArray, gameWon, difficulty } = state;
+  const { tilesArray, gameWon, difficulty, playing } = state;
   const cols = difficultyMap[difficulty].cols;
 
   useEffect(() => {
@@ -15,10 +15,10 @@ export const Game = () => {
     return 'Loading';
   }
 
-  if( gameWon === true ) {
+  if( playing === false ) {
     return (
       <>
-        <h2>You won</h2>
+        <h2>{gameWon === true ? 'You won' : 'You lost' }</h2>
         <button 
           title='New game?'
           type='button'
