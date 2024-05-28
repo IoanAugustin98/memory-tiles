@@ -68,9 +68,6 @@ This architecture ensures that the application is performant, maintainable, and 
 ## License
 This project is licensed under the MIT License.
 
-## Screenshots
-![Memory Tiles Screenshot](path/to/screenshot.png)
-
 ---
 
 # Memory Tiles
@@ -142,6 +139,3 @@ Această arhitectură asigură că aplicația este performantă, ușor de între
 
 ## Licență
 Acest proiect este licențiat sub Licența MIT.
-
-## Capturi de ecran
-![Captură de ecran Memory Tiles](path/to/screenshot.png)
