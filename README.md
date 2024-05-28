@@ -56,13 +56,13 @@ The architecture of the Memory Tiles project is designed to be simple and modula
 - React Components: The application is divided into reusable React components, each responsible for a specific part of the UI.
 
 Here is a basic diagram of the application's architecture:
-
+```
 [Next.js] ---> [React Components] ---> [Tailwind CSS]
    |                |
 [Server-Side]     [JavaScript Game Logic]
    |
 [Static Site Generation]
-
+```
 This architecture ensures that the application is performant, maintainable, and easy to extend.
 
 ## License
@@ -128,13 +128,13 @@ Arhitectura proiectului Memory Tiles este proiectată pentru a fi simplă și mo
 - Componente React: Aplicația este împărțită în componente React reutilizabile, fiecare responsabilă pentru o parte specifică a interfeței.
 
 Iată o diagramă de bază a arhitecturii aplicației:
-
+```
 [Next.js] ---> [Componente React] ---> [Tailwind CSS]
    |                |
 [Server-Side]     [Logica Jocului în JavaScript]
    |
 [Generare Site Static]
-
+```
 Această arhitectură asigură că aplicația este performantă, ușor de întreținut și ușor de extins.
 
 ## Licență
